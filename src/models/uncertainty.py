@@ -3,21 +3,12 @@
 Fits candidate distribution families to sparse percentile data (p10/p50/p90,
 optionally p1/p99), selects the lowest fit-error model, and generates
 deterministic empirical draws for downstream risk-profile calculations.
+
+Requires: pip install rp-distribution-fitting
+  (or: pip install git+https://github.com/CharlesD353/rp-distribution-fitting.git)
 """
 
-import os
-import sys
-
 import numpy as np
-
-# Add rp-distribution-fitting to path so we can import its modules
-_RP_DIST_DIR = os.path.join(
-    os.path.dirname(__file__), "..", "..", "..", "rp-distribution-fitting"
-)
-if os.path.isdir(_RP_DIST_DIR):
-    if _RP_DIST_DIR not in sys.path:
-        sys.path.insert(0, _RP_DIST_DIR)
-
 from distributions import fit_all, FitResult, PercentileSpec
 
 
