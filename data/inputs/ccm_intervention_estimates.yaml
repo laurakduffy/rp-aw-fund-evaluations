@@ -1,0 +1,96 @@
+metadata:
+  source: rethinkpriorities/cross-cause-cost-effectiveness-model-public
+  source_files:
+  - ccm/interventions/animal/animal_interventions.py
+  - ccm/interventions/animal/animal_intervention_params.py
+  unit: suffering-years averted per $1000 (pre-moral-weight)
+  n_samples: 100000
+  seed: 42
+  note: These are animal suffering-years, not human-equivalent DALYs. The CCM applies moral weight adjustments downstream.
+    For this pipeline we use these values directly as 'animal-DALYs' pending confirmation on which moral weights to apply.
+interventions:
+  chicken_corporate_campaigns:
+    description: Corporate cage-free and welfare campaigns for chickens
+    ccm_method: Direct override from Laura Duffy estimates
+    ccm_distribution: norm(lo=160, hi=3630, lclip=16, credibility=90)
+    recipient_type: birds
+    species: chicken
+    effect_start_year: 1
+    persistence_years: 8
+    percentiles_per_1000:
+      p10: 543.44
+      p50: 1897.79
+      p90: 3249.71
+      mean: 1911.87
+  shrimp_welfare:
+    description: Shrimp slaughter and welfare interventions
+    ccm_method: Bottom-up model (prop_affected * hours * reduction * success * persistence / cost)
+    recipient_type: shrimp
+    species: shrimp
+    effect_start_year: 2
+    persistence_years: 5
+    percentiles_per_1000:
+      p10: !!float '0'
+      p50: !!float '0'
+      p90: 160.11
+      mean: 61.48
+  fish_welfare:
+    description: Farmed fish welfare interventions (carp as CCM proxy)
+    ccm_method: Bottom-up model using carp parameters
+    recipient_type: fish
+    species: carp
+    effect_start_year: 2
+    persistence_years: 5
+    percentiles_per_1000:
+      p10: !!float '0'
+      p50: !!float '0'
+      p90: 765.91
+      mean: 303.10
+  invertebrate_welfare:
+    description: Invertebrate welfare interventions (BSF as CCM proxy)
+    ccm_method: Bottom-up model using BSF parameters
+    recipient_type: non_shrimp_invertebrates
+    species: bsf
+    effect_start_year: 3
+    persistence_years: 5
+    percentiles_per_1000:
+      p10: !!float '0'
+      p50: 119.64
+      p90: 7670.67
+      mean: 2846.80
+  policy_advocacy_multi_species:
+    description: Policy advocacy affecting multiple farmed species
+    ccm_method: 'Analyst estimate: weighted average of chicken (60%) and shrimp (40%) CCM estimates at 50% effectiveness discount'
+    recipient_type: multiple
+    species: multiple
+    effect_start_year: 2
+    persistence_years: 8
+    percentiles_per_1000:
+      p10: 173.48
+      p50: 580.71
+      p90: 989.51
+      mean: 585.86
+  movement_building:
+    description: Movement capacity building, infrastructure, mobilization
+    ccm_method: 'Analyst estimate: 25% of chicken CCM estimate as indirect multiplier'
+    recipient_type: multiple
+    species: multiple
+    effect_start_year: 3
+    persistence_years: 10
+    percentiles_per_1000:
+      p10: 135.86
+      p50: 474.45
+      p90: 812.43
+      mean: 477.97
+  wild_animal_welfare:
+    description: Wild animal welfare research and field-building
+    ccm_method: 'No CCM model available. Analyst prior: very uncertain, low but potentially large scale.'
+    recipient_type: multiple
+    species: wild
+    effect_start_year: 5
+    persistence_years: 15
+    percentiles_per_1000:
+      p10: 1.67
+      p50: 10.08
+      p90: 60.55
+      mean: 26.85

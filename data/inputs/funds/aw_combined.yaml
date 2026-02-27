@@ -1,0 +1,42 @@
+# Combined AW Fund Estimate — Weighted aggregate of all AW funds
+#
+# Weights by annual budget:
+#   EA AWF:        $3.7M   (from 2024 payout reports)
+#   TNF Combined: $22.8M   (from Jesse's grantmaking summary, 2024-2025 avg)
+#   CG:            $0.0M   (template, not yet filled)
+#   Total:        $26.5M
+#
+# Budget-weighted splits:
+#   chicken = (0.35×3.7 + 0.464×22.8) / 26.5 = 0.448
+#   policy  = (0.10×3.7 + 0.199×22.8) / 26.5 = 0.185
+#   movement = (0.12×3.7 + 0.260×22.8) / 26.5 = 0.241
+#   fish    = (0.12×3.7 + 0.039×22.8) / 26.5 = 0.050
+#   shrimp  = (0.05×3.7 + 0.031×22.8) / 26.5 = 0.034
+#   invert  = (0.02×3.7 + 0.006×22.8) / 26.5 = 0.008
+#   wild    = (0.14×3.7 + 0.003×22.8) / 26.5 = 0.022
+#
+# NOTE: TNF dominates (~86% of total budget). Splits will shift when CG
+# data arrives.
+
+fund:
+  project_id: aw_combined
+  display_name: "Combined AW Funds"
+  annual_budget_M: 26.5
+  room_for_more_M: 66.3
+  source_year: 2024-2025
+
+  splits:
+    chicken_corporate_campaigns: 0.448
+    policy_advocacy_multi_species: 0.185
+    movement_building: 0.241
+    fish_welfare: 0.050
+    shrimp_welfare: 0.034
+    invertebrate_welfare: 0.008
+    wild_animal_welfare: 0.022
+
+  diminishing_anchors:
+    - [10.0, 1.0]
+    - [26.5, 0.95]
+    - [50.0, 0.85]
+    - [90.0, 0.60]
+    - [150.0, 0.40]

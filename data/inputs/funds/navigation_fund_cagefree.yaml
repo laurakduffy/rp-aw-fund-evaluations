@@ -1,0 +1,47 @@
+# Navigation Fund — Cage-Free Accountability Fund
+#
+# Source: "TNF - Summary of Grantmaking for RP" (Jesse, Feb 2026)
+# Supplemented by TNF RFMF document (confidential, Feb 2026)
+#
+# See data/inputs/funds/TNF_README.md for full categorisation methodology.
+#
+# Mapped from two CSV lines:
+#   "Multinational cage-free corporate campaigns"  $6,720K (2yr)
+#   "US & Canada accountability"                   $5,571K (2yr)
+#   Total: $12,291K over 2yr = ~$6.15M/yr
+#
+# This fund is effectively single-intervention: cage-free corporate
+# campaigns targeting retailers. Currently focused on US (Ahold Delhaize),
+# with potential expansion to EU, Asia, Latin America at higher funding.
+#
+# RFMF from the confidential doc:
+#   2026: $20M additional
+#   2027: $40M additional
+#
+# Diminishing returns thresholds (from RFMF doc):
+#   First $10M additional: accelerate current Ahold campaign
+#   Next $10M: prepare next retailer target
+#   Above $20M: replicate model in new geographies
+
+fund:
+  project_id: navigation_fund_cagefree
+  display_name: "Navigation Fund — Cage-Free Accountability"
+  annual_budget_M: 6.15
+  room_for_more_M: 20.0
+  source_year: 2024-2025
+
+  splits:
+    chicken_corporate_campaigns: 1.00
+    fish_welfare: 0.00
+    shrimp_welfare: 0.00
+    invertebrate_welfare: 0.00
+    policy_advocacy_multi_species: 0.00
+    movement_building: 0.00
+    wild_animal_welfare: 0.00
+
+  diminishing_anchors:
+    - [3.0, 1.0]
+    - [6.0, 0.95]
+    - [16.0, 0.85]
+    - [26.0, 0.70]
+    - [50.0, 0.45]

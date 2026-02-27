@@ -1,0 +1,46 @@
+# Navigation Fund — General Farm Animal Grantmaking (excluding Cage-Free Fund)
+#
+# Source: "TNF - Summary of Grantmaking for RP" (Jesse, Feb 2026)
+# Supplemented by TNF RFMF document (confidential, Feb 2026)
+#
+# See data/inputs/funds/TNF_README.md for full categorisation methodology.
+#
+# This file excludes the two lines most associated with the Cage-Free
+# Accountability Fund: "Multinational cage-free corporate campaigns" ($6.72M)
+# and "US & Canada accountability" ($5.57M). Those are in
+# navigation_fund_cagefree.yaml.
+#
+# Remaining general fund: $45.6M - $12.3M = $33.3M over 2yr = ~$16.7M/yr
+# The RFMF doc states 2026 general budget is $20M (trending up from $16.7M avg).
+
+fund:
+  project_id: navigation_fund_general
+  display_name: "Navigation Fund — General Farm Animal"
+  annual_budget_M: 16.7
+  room_for_more_M: 40.0
+  source_year: 2024-2025
+
+  # Splits from Jesse's data, excluding cage-free accountability lines.
+  # Total general: ~$33.35M over 2yr
+  #   chicken (regional corporate): $8,870K → 0.27
+  #   policy: $9,090K → 0.27
+  #   movement: $11,846K → 0.36
+  #   fish: $1,763K → 0.05
+  #   shrimp: $1,405K → 0.04
+  #   invertebrate: $260K → 0.008
+  #   wild: $120K → 0.004
+  splits:
+    chicken_corporate_campaigns: 0.27
+    policy_advocacy_multi_species: 0.27
+    movement_building: 0.36
+    fish_welfare: 0.05
+    shrimp_welfare: 0.04
+    invertebrate_welfare: 0.008
+    wild_animal_welfare: 0.004
+
+  diminishing_anchors:
+    - [8.0, 1.0]
+    - [17.0, 0.95]
+    - [35.0, 0.85]
+    - [57.0, 0.65]
+    - [100.0, 0.45]

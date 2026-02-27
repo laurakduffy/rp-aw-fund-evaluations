@@ -1,0 +1,103 @@
+# AW Fund Marginal Cost-Effectiveness Evaluations
+
+Estimates the marginal cost-effectiveness of EA Animal Welfare funds in terms of **animal suffering-years averted per dollar**, using intervention estimates from the Rethink Priorities Cross-Cause Model (CCM).
+
+## Quick Start
+
+```bash
+source ../test_env/bin/activate
+cd aw-fund-evaluations
+pip install -r requirements.txt
+python run.py --fund ea_awf --verbose
+```
+
+Run for a specific fund:
+```bash
+python run.py --fund ea_awf --verbose       # EA Animal Welfare Fund
+python run.py --fund aw_combined --verbose   # Combined AW estimate
+python run.py --fund navigation_fund         # (template — fill in splits first)
+```
+
+## Architecture
+
+```
+aw-fund-evaluations/
+├── data/inputs/
+│   ├── ccm_intervention_estimates.yaml  # CCM-derived CE percentiles per intervention
+│   ├── ccm_extract.py                  # Script that generated the above from CCM params
+│   ├── funds/
+│   │   ├── ea_awf.yaml                 # EA AWF splits (estimated from 2024 payouts)
+│   │   ├── navigation_fund.yaml        # Template — awaiting Jesse's data
+│   │   ├── coefficient_giving.yaml     # Template — awaiting Lewis's data
+│   │   ├── aw_combined.yaml            # Weighted aggregate
+│   │   └── TEMPLATE.yaml               # Instructions for adding a new fund
+│   └── README.md                        # Data provenance and status
+├── src/
+│   ├── models/
+│   │   ├── effects.py              # CCM estimates + fund splits → effect rows
+│   │   ├── uncertainty.py          # Distribution fitting (wraps rp-distribution-fitting)
+│   │   ├── risk_profiles.py        # Risk-adjusted EV summaries
+│   │   └── diminishing_returns.py  # Marginal CE scaling curves
+│   └── pipeline/
+│       ├── build_dataset.py        # Assembles full effect table
+│       └── export.py               # CSV/MD output writers
+├── tests/                          # Unit and integration tests
+├── outputs/                        # Generated outputs (gitignored)
+├── run.py                          # CLI entry point
+└── requirements.txt
+```
+
+## Methodology
+
+1. **CCM intervention estimates**: Pre-computed cost-effectiveness distributions from the Rethink Priorities CCM, extracted as p10/p50/p90 percentiles of suffering-years averted per $1000. Source parameters are in `ccm_extract.py`.
+
+2. **Fund budget splits**: Each fund has a YAML file specifying what percentage of its budget goes to each intervention type (chicken campaigns, fish welfare, shrimp, etc.).
+
+3. **Distribution fitting**: Fit parametric distributions (normal, lognormal, skew-normal, GEV, etc.) to the CCM percentiles using `rp-distribution-fitting`. For zero-heavy distributions (where p10=0 due to binary success models), the CCM mean is used directly.
+
+4. **Risk adjustments**: Compute risk-neutral EV plus risk-averse variants:
+   - **Upside skepticism**: Truncate upper tail at p99
+   - **Downside protection**: Loss-averse utility (lambda=2.5, reference=median)
+   - **Combined**: Both truncation and loss aversion
+
+5. **Diminishing returns**: Piecewise linear scaling curve from fund allocation data, tracking where marginal CE drops to 20% of initial.
+
+6. **Time allocation**: Effects distributed across time periods (0-5, 5-10, 10-20, 20-100 years).
+
+## Adding a New Fund
+
+1. Copy `data/inputs/funds/TEMPLATE.yaml` to `data/inputs/funds/<fund_name>.yaml`
+2. Fill in `annual_budget_M` and the intervention `splits` (decimal fractions summing to ~1.0)
+3. Run `python run.py --fund <fund_name> --verbose`
+
+Available intervention keys match those in `ccm_intervention_estimates.yaml`:
+- `chicken_corporate_campaigns`, `shrimp_welfare`, `fish_welfare`
+- `invertebrate_welfare`, `policy_advocacy_multi_species`
+- `movement_building`, `wild_animal_welfare`
+
+## Outputs
+
+- `outputs/aw_marginal_ce_dataset.csv` — One row per intervention with CE summaries
+- `outputs/aw_marginal_ce_assumptions.md` — Assumption register with sources
+- `outputs/aw_marginal_ce_sensitivity.csv` — One-way sensitivity analysis
+
+## Data Provenance
+
+| Data | Source | Status |
+|------|--------|--------|
+| Chicken CE | CCM direct override (Laura Duffy) | Real CCM parameter |
+| Shrimp/Fish/Invertebrate CE | CCM bottom-up models | Real CCM parameters |
+| Policy/Movement/Wild CE | Analyst priors from CCM baselines | Derived estimates |
+| EA AWF splits | 2024 payout reports (EA Forum) | Estimated from public data |
+| Navigation Fund splits | Awaiting Jesse | Template only |
+| Coefficient Giving splits | Awaiting Lewis | Template only |
+| Diminishing returns | Placeholder anchors | Needs fund manager input |
+
+## What Still Needs Human Input
+
+- **Navigation Fund splits**: Fill `navigation_fund.yaml` when data arrives
+- **CG splits**: Fill `coefficient_giving.yaml` if Lewis responds
+- **Mammals**: CCM has no mammal intervention model — needs analyst estimate or omission
+- **Wild animals**: Analyst prior only — CCM has no wild animal model
+- **Moral weights**: CCM values are pre-moral-weight (animal suffering-years); confirm whether to apply CCM moral weights or alternative weights
+- **Diminishing returns anchors**: Need fund manager input per fund
