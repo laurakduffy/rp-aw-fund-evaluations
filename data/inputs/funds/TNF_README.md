@@ -2,10 +2,69 @@
 
 ## Sources
 
-1. **"TNF - Summary of Grantmaking for RP"** — spreadsheet from Jesse (Feb 2026) with line-by-line grant allocations for 2024 and 2025, broken down by region, species, and area.
-2. **TNF RFMF document** — confidential Room For More Funding rationale shared Feb 2026, covering budget structure, team capacity, absorption arguments, and the Cage-Free Accountability Fund.
+1. **"TNF - Summary of Grantmaking for RP - Future General Spending"** — spreadsheet from Jesse (Feb 2026) showing how TNF would allocate $40M RFMF for general grantmaking in 2026.
+2. **"TNF - Summary of Grantmaking for RP - Future Cage-Free Spending"** — spreadsheet from Jesse showing how TNF would allocate up to $33M for the Cage-Free Accountability Fund in 2026.
+3. **"TNF - Summary of Grantmaking for RP" (historical)** — line-by-line grant allocations for 2024-2025. Used for context and documented below, but **not used for fund YAML splits** — we use marginal (future) data instead.
+4. **TNF RFMF document** — confidential Room For More Funding rationale shared Feb 2026, covering budget structure, team capacity, absorption arguments, and the Cage-Free Accountability Fund.
 
-## Raw data
+## Why marginal, not historical
+
+We use the future spending sheets for fund YAML splits because we're estimating the cost-effectiveness of the **next dollar** donated to TNF, not the average dollar. The marginal allocation differs significantly from historical — notably chicken drops from 46% to 19% in the general fund (because cage-free is carved out as restricted funding), while movement building rises from 26% to 44%.
+
+## Marginal data (used for fund YAMLs)
+
+### Cage-Free Fund — future $33M
+
+From the "Future Cage-Free Spending" sheet. 100% layer hens.
+
+| Region | Amount | Target |
+|--------|--------|--------|
+| US | $20,000,000 | 75% cage-free by 2030 |
+| EU | $10,000,000 | EU-wide ban on cages |
+| UK | $2,000,000 | UK ban on cages |
+| South Korea | $1,000,000 | National ban on cages |
+| **Total** | **$33,000,000** | |
+
+Maps entirely to `chicken_corporate_campaigns`.
+
+### General Fund — future $40M RFMF
+
+From the "Future General Spending" sheet. Regional lines allocated using species lists and descriptions (same approach as historical, see rationale below).
+
+| CSV Line | Amount | chicken | policy | movement | fish | shrimp | invert | wild |
+|----------|--------|---------|--------|----------|------|--------|--------|------|
+| EU & UK corporate + political | $7,200K | 50% | 35% | — | 10% | 5% | — | — |
+| Latin America ecosystem | $2,800K | 40% | 25% | 25% | 10% | — | — | — |
+| Asia ecosystem | $5,200K | 40% | 25% | 25% | 10% | — | — | — |
+| Africa ecosystem | $1,600K | 40% | 25% | 25% | 10% | — | — | — |
+| US political | $4,000K | — | 100% | — | — | — | — | — |
+| Aquatic welfare | $2,000K | — | — | — | 50% | 50% | — | — |
+| Insects & wild animals | $2,000K | — | — | — | — | — | 50% | 50% |
+| Media & comms | $6,000K | — | — | 100% | — | — | — | — |
+| Meta-field & youth | $3,200K | — | — | 100% | — | — | — | — |
+| Meta-fundraising | $2,000K | — | — | 100% | — | — | — | — |
+| Movement building & capacity | $4,000K | — | — | 100% | — | — | — | — |
+
+Note: The regional allocations differ slightly from the historical ratios. LatAm/Asia/Africa future sheets describe "growing the movement ecosystem" with emphasis on "talent and innovation" alongside corporate campaigns, so we allocate 25% to movement_building (vs 0% historically). Chicken share drops from 55% to 40% for these regions because the descriptions emphasise diversification and ecosystem-building rather than pure corporate campaigns.
+
+EU stays at 50% chicken (vs 55% historical) because it still emphasises "corporate and political reforms" but the note says restricted cage-free funding would reduce this further.
+
+**Resulting marginal splits:**
+
+| Category | Marginal $M | Split |
+|----------|-------------|-------|
+| movement_building | $17.6M | 44% |
+| policy_advocacy_multi_species | $8.9M | 22% |
+| chicken_corporate_campaigns | $7.4M | 19% |
+| fish_welfare | $2.7M | 7% |
+| shrimp_welfare | $1.4M | 3% |
+| invertebrate_welfare | $1.0M | 2.5% |
+| wild_animal_welfare | $1.0M | 2.5% |
+| **Total** | **$40.0M** | **100%** |
+
+---
+
+## Historical data (reference only — not used for fund YAMLs)
 
 From the grantmaking summary (all figures are 2024+2025 cumulative):
 
@@ -99,7 +158,7 @@ Allocation:
 
 These ratios are the main judgement call in the analysis. If Jesse disagrees with 55/30/10/5, the fix is to update these ratios and re-run.
 
-## Resulting splits
+### Historical resulting splits
 
 | Category | 2yr Total | Annual (~) | Split |
 |----------|-----------|-----------|-------|
@@ -132,7 +191,8 @@ The RFMF doc doesn't give numerical CE multipliers but describes thresholds in n
 
 ## What could change these estimates
 
-- **Jesse confirms or corrects regional splits**: The 55/30/10/5 allocation on EU/LatAm/Asia lines is the biggest assumption. Even shifting chicken from 55% to 45% or 65% would meaningfully change the overall split.
-- **Cage-free fund budget clarified**: We inferred ~$6.15M/yr from the two most relevant CSV lines, but the RFMF doc doesn't state the current cage-free budget explicitly.
-- **2026 budget differs from 2024-2025 average**: The RFMF doc says $20M general for 2026. If TNF is shifting allocation significantly (e.g. more policy, less movement building), these splits would need updating.
-- **New interventions**: The RFMF doc mentions incubating projects in emerging fields. If TNF enters wild animal welfare or invertebrate welfare more seriously, those tiny allocations would grow.
+- **Jesse confirms or corrects regional splits**: The allocation ratios on EU/LatAm/Asia/Africa lines are the biggest assumption. The marginal ratios differ from historical (more movement building, less chicken) based on the descriptions in the future spending sheet.
+- **Cage-free fund budget clarified**: We inferred ~$6.15M/yr current from historical data. The RFMF doc doesn't state it explicitly.
+- **CG and AWF coordination**: The future spending sheet notes TNF assumes CG and AWF will invest heavily in global south, invertebrates, fish, wild animals, and humane tech. If that changes, TNF would "reprioritize allocations."
+- **Aquatic welfare growth**: Jesse notes "Our actual giving in this area will likely be higher, through a swap with CG. We aren't counting that here." So fish/shrimp splits may be understated.
+- **Restricted cage-free funding for EU**: If the cage-free fund gets significant EU funding, the general fund's EU allocation would drop and be redistributed.

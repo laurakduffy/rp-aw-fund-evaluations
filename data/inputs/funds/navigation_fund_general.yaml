@@ -1,42 +1,53 @@
 # Navigation Fund — General Farm Animal Grantmaking (excluding Cage-Free Fund)
 #
-# Source: "TNF - Summary of Grantmaking for RP" (Jesse, Feb 2026)
-# Supplemented by TNF RFMF document (confidential, Feb 2026)
+# Source: "TNF - Summary of Grantmaking for RP - Future General Spending"
+# (Jesse, Feb 2026) — shows how TNF would spend $40M RFMF in 2026.
 #
 # See data/inputs/funds/TNF_README.md for full categorisation methodology.
 #
-# This file excludes the two lines most associated with the Cage-Free
-# Accountability Fund: "Multinational cage-free corporate campaigns" ($6.72M)
-# and "US & Canada accountability" ($5.57M). Those are in
-# navigation_fund_cagefree.yaml.
+# These are MARGINAL splits — how the next dollar would be allocated,
+# not how past dollars were spent. This is what we want for marginal CE.
 #
-# Remaining general fund: $45.6M - $12.3M = $33.3M over 2yr = ~$16.7M/yr
-# The RFMF doc states 2026 general budget is $20M (trending up from $16.7M avg).
+# The future spending sheet explicitly lays out $40M across regions/areas.
+# Regional lines (EU, LatAm, Asia, Africa) were allocated using species
+# lists and area descriptions. See TNF_README.md for ratios.
+#
+# Note from Jesse: "You can assume a similar breakdown if our budget
+# increases further in 2027. As absorbency and tractability in Asia,
+# Latin America and Africa increase, we would expect to increase the
+# ratios in those regions by tapering increases in the US and EU."
 
 fund:
   project_id: navigation_fund_general
   display_name: "Navigation Fund — General Farm Animal"
   annual_budget_M: 16.7
   room_for_more_M: 40.0
-  source_year: 2024-2025
+  source_year: 2026
 
-  # Splits from Jesse's data, excluding cage-free accountability lines.
-  # Total general: ~$33.35M over 2yr
-  #   chicken (regional corporate): $8,870K → 0.27
-  #   policy: $9,090K → 0.27
-  #   movement: $11,846K → 0.36
-  #   fish: $1,763K → 0.05
-  #   shrimp: $1,405K → 0.04
-  #   invertebrate: $260K → 0.008
-  #   wild: $120K → 0.004
+  # Marginal splits from future general spending sheet ($40M RFMF):
+  #   movement_building: $17.6M → 0.44
+  #     media & comms $6M, capacity $4M, meta-field $3.2M, fundraising $2M,
+  #     regional talent/innovation portions of LatAm/Asia/Africa
+  #   policy_advocacy: $8.9M → 0.22
+  #     US political $4M, plus policy portions of EU/LatAm/Asia/Africa
+  #   chicken_corporate_campaigns: $7.4M → 0.19
+  #     corporate campaign portions of EU/LatAm/Asia/Africa regional lines
+  #   fish_welfare: $2.7M → 0.07
+  #     aquatic line ($2M × 50%) + fish portions of regional lines
+  #   shrimp_welfare: $1.4M → 0.03
+  #     aquatic line ($2M × 50%) + EU shrimp portion
+  #   invertebrate_welfare: $1.0M → 0.025
+  #     insects & wild line ($2M × 50%)
+  #   wild_animal_welfare: $1.0M → 0.025
+  #     insects & wild line ($2M × 50%)
   splits:
-    chicken_corporate_campaigns: 0.27
-    policy_advocacy_multi_species: 0.27
-    movement_building: 0.36
-    fish_welfare: 0.05
-    shrimp_welfare: 0.04
-    invertebrate_welfare: 0.008
-    wild_animal_welfare: 0.004
+    movement_building: 0.44
+    policy_advocacy_multi_species: 0.22
+    chicken_corporate_campaigns: 0.19
+    fish_welfare: 0.07
+    shrimp_welfare: 0.03
+    invertebrate_welfare: 0.025
+    wild_animal_welfare: 0.025
 
   diminishing_anchors:
     - [8.0, 1.0]

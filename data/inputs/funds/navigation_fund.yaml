@@ -1,42 +1,40 @@
-# Navigation Fund — Combined
+# Navigation Fund — Combined (General + Cage-Free)
 #
-# Source: "TNF - Summary of Grantmaking for RP" (Jesse, Feb 2026)
-# Supplemented by TNF RFMF document (confidential, Feb 2026)
+# Source: TNF future spending sheets (Jesse, Feb 2026)
 #
-# See data/inputs/funds/TNF_README.md for full categorisation methodology.
+# Run the sub-funds separately for more detail:
+#   python run.py --fund navigation_fund_general --verbose
+#   python run.py --fund navigation_fund_cagefree --verbose
 #
-# Budget: $45.6M over 2024-2025 ($21M in 2024, $24M in 2025) = ~$22.8M/yr
-# RFMF 2026: $40M general + $20M cage-free = $60M additional
-#
-# Splits derived from line-by-line categorisation of Jesse's spreadsheet.
-# Regional lines (EU/LatAm/Asia) that blend corporate campaigns and policy
-# work were allocated using species-benefited lists and area descriptions.
-# See TNF_README.md for allocation ratios and rationale.
+# Marginal splits, budget-weighted: general=$40M RFMF, cagefree=$33M RFMF
+# Total marginal: $73M
+#   chicken = (0.19 × 40 + 1.00 × 33) / 73 = 0.556
+#   movement = 0.44 × 40 / 73 = 0.241
+#   policy = 0.22 × 40 / 73 = 0.121
+#   fish = 0.07 × 40 / 73 = 0.038
+#   shrimp = 0.03 × 40 / 73 = 0.016
+#   invertebrate = 0.025 × 40 / 73 = 0.014
+#   wild = 0.025 × 40 / 73 = 0.014
 
 fund:
   project_id: navigation_fund
   display_name: "Navigation Fund (Combined)"
   annual_budget_M: 22.8
-  room_for_more_M: 60.0
-  source_year: 2024-2025
+  room_for_more_M: 73.0
+  source_year: 2026
 
   splits:
-    chicken_corporate_campaigns: 0.46
-    policy_advocacy_multi_species: 0.20
-    movement_building: 0.26
-    fish_welfare: 0.04
-    shrimp_welfare: 0.03
-    invertebrate_welfare: 0.006
-    wild_animal_welfare: 0.003
+    chicken_corporate_campaigns: 0.556
+    movement_building: 0.241
+    policy_advocacy_multi_species: 0.121
+    fish_welfare: 0.038
+    shrimp_welfare: 0.016
+    invertebrate_welfare: 0.014
+    wild_animal_welfare: 0.014
 
-  # Diminishing returns from RFMF doc narrative:
-  # - Current ~$23M: high CE (proven POs, pipeline of projects)
-  # - At ~$45M: still good (scale grant sizes, known opportunities)
-  # - At ~$80M: moderate decline (need to hire, new geographies)
-  # - At ~$120M+: steeper decline (absorption capacity limits)
   diminishing_anchors:
     - [10.0, 1.0]
     - [23.0, 0.95]
-    - [45.0, 0.85]
-    - [80.0, 0.65]
-    - [120.0, 0.45]
+    - [50.0, 0.82]
+    - [80.0, 0.60]
+    - [120.0, 0.40]
