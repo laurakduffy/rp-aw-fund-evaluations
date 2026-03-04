@@ -1,0 +1,6 @@
+numpy
+scipy
+pandas
+pyyaml
+matplotlib
+rp-distribution-fitting @ git+https://github.com/CharlesD353/rp-distribution-fitting.git
