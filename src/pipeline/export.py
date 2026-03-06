@@ -93,20 +93,19 @@ def export_assumptions(dataset, output_path, verbose=False):
         "## Key Sources",
         "",
         "- CE estimates: Rethink Priorities CCM "
-        "(github.com/rethinkpriorities/cross-cause-cost-effectiveness-model-public)",
-        "- Chicken estimates: Laura Duffy direct override in CCM",
-        "- Shrimp/Carp/BSF: CCM bottom-up models",
-        "- Policy/Movement/Wild: Analyst priors derived from CCM chicken/shrimp baselines",
+        "(github.com/rethinkpriorities/cross-cause-cost-effectiveness-model-public), "
+        " https://docs.google.com/document/d/1Kuu08LFYpjG-wGzt7_QmBLkFTzsv4FaQHYRQKn9p3A8/edit?usp=sharing",
+        "- Chicken, Shrimp, Carp estimates: Laura Duffy direct override",
+        "- BSF: CCM bottom-up models",
+        "- Wild: Mixture of BSF model and constructed wild mammal model"
+        "- Policy/Movement: Analyst priors derived from CCM chicken/shrimp baselines",
         "- Fund splits: EA AWF 2024 payout reports (forum.effectivealtruism.org)",
         "- Distribution fitting: rp-distribution-fitting (lowest fit-error selection)",
         "",
         "## Caveats",
         "",
-        "- CCM estimates are pre-moral-weight (animal suffering-years, not human DALYs).",
-        "- Policy advocacy, movement building, and wild animal estimates are analyst priors, "
-        "not from the CCM's bottom-up models.",
-        "- Shrimp and fish interventions have binary success models — ~50% of samples are zero, "
-        "making distribution fitting less reliable for these.",
+        "- CCM estimates are pre-moral-weight or sentience-adjustments (animal suffering-years, not human DALYs).",
+        "- Interventions do not consider possibility of zero effect or unintended consequences.",
         "- Fund splits are estimated from public payout reports and may not reflect "
         "the fund's marginal allocation.",
         "- No time discounting is applied.",
@@ -177,3 +176,29 @@ def export_sensitivity(dataset, output_path, verbose=False):
     if verbose:
         print(f"Sensitivity CSV written to: {output_path}")
         print(f"  {len(sensitivity_rows)} rows across {len(rows)} effects")
+
+
+def export_diminishing(dataset, output_path, verbose=False):
+    """Write the fund-level diminishing returns curve to CSV.
+
+    One row per spend point with columns: spend_M, marginal_ce_multiplier.
+    The first row is normalised to 1.000.
+    """
+    dr = dataset["diminishing"]
+    values = dr["values"]
+    spend_points = dr["spend_points"]
+
+    if not values:
+        if verbose:
+            print("No diminishing returns data to export.")
+        return
+
+    with open(output_path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["spend_M", "marginal_ce_multiplier"])
+        for spend, val in zip(spend_points, values):
+            writer.writerow([spend, f"{val:.6f}"])
+
+    if verbose:
+        print(f"Diminishing returns CSV written to: {output_path}")
+        print(f"  {len(values)} points, ${spend_points[0]}M\u2013${spend_points[-1]}M")

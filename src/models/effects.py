@@ -80,7 +80,7 @@ def compute_all_effects(fund_key="aw_combined", verbose=False):
         animal_dalys_per_M = {
             k: v * 1000
             for k, v in pct_per_1000.items()
-            if k in ("p10", "p50", "p90", "mean")
+            if k in ("p1", "p5", "p10", "p50", "p90", "p95", "p99", "mean")
         }
 
         effect = {

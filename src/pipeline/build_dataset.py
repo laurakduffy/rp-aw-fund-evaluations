@@ -16,7 +16,6 @@ from models.diminishing_returns import (
     PERIOD_KEYS,
 )
 
-
 def build_all_effects(fund_key="aw_combined", verbose=False):
     """Build the complete effect dataset.
 
@@ -45,7 +44,7 @@ def build_all_effects(fund_key="aw_combined", verbose=False):
 
         # Separate mean from percentiles for fitting
         ccm_mean = pct_dict.pop("mean", None)
-        fit_pcts = {k: v for k, v in pct_dict.items() if k in ("p10", "p50", "p90")}
+        fit_pcts = {k: v for k, v in pct_dict.items() if k in ("p1", "p5", "p10", "p50", "p90", "p95", "p99")}
 
         # If p10 is zero (binary-success interventions like shrimp/fish/invertebrates),
         # distribution fitting struggles with the zero mass. Use CCM mean directly.
@@ -102,7 +101,12 @@ def build_all_effects(fund_key="aw_combined", verbose=False):
             print(f"    Neutral: {risk['neutral']:,.0f}  "
                   f"Upside: {risk['upside']:,.0f}  "
                   f"Downside: {risk['downside']:,.0f}  "
-                  f"Combined: {risk['combined']:,.0f}")
+                  f"Combined: {risk['combined']:,.0f}" 
+                  f"DMREU: {risk['dmreu']:,.0f}  "
+                  f"WLU low: {risk['wlu - low']:,.0f}  "
+                  f"WLU moderate: {risk['wlu - moderate']:,.0f} "
+                  f"WLU high: {risk['wlu - high']:,.0f}  "
+                  f"Ambiguity: {risk['ambiguity']:,.0f}")
 
         rows.append(row)
 

@@ -48,7 +48,7 @@ fund:
     invertebrate_welfare: 0.02
     policy_advocacy_multi_species: 0.10
     movement_building: 0.12
-    wild_animal_welfare: 0.14
+    wild_animal_welfare: 0.14 
     # ~10% unallocated / anonymous grants — distributed pro-rata across above
 
   # Diminishing returns anchors: [cumulative $M, marginal CE multiplier]

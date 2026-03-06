@@ -90,3 +90,4 @@ def fit_and_draw(pct_dict, n_samples=10000, verbose=False):
     fit = fit_best(pct_dict, verbose=verbose)
     draws = generate_draws(fit, n_samples=n_samples)
     return fit, draws
+

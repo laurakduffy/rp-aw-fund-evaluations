@@ -14,8 +14,10 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
-from pipeline.build_dataset import build_all_effects
-from pipeline.export import export_dataset, export_assumptions, export_sensitivity
+from src.pipeline.build_dataset import build_all_effects
+from src.pipeline.export import (
+    export_dataset, export_assumptions, export_sensitivity, export_diminishing,
+)
 
 
 def main():
@@ -48,14 +50,19 @@ def main():
         verbose=args.verbose,
     )
 
-    csv_path = os.path.join(args.output_dir, "aw_marginal_ce_dataset.csv")
+    project_id = dataset["fund_config"]["project_id"]
+
+    csv_path = os.path.join(args.output_dir, f"{project_id}_dataset.csv")
     export_dataset(dataset, csv_path, verbose=args.verbose)
 
-    assumptions_path = os.path.join(args.output_dir, "aw_marginal_ce_assumptions.md")
+    assumptions_path = os.path.join(args.output_dir, f"{project_id}_assumptions.md")
     export_assumptions(dataset, assumptions_path, verbose=args.verbose)
 
-    sensitivity_path = os.path.join(args.output_dir, "aw_marginal_ce_sensitivity.csv")
+    sensitivity_path = os.path.join(args.output_dir, f"{project_id}_sensitivity.csv")
     export_sensitivity(dataset, sensitivity_path, verbose=args.verbose)
+
+    diminishing_path = os.path.join(args.output_dir, f"{project_id}_diminishing.csv")
+    export_diminishing(dataset, diminishing_path, verbose=args.verbose)
 
     print(f"\nAll outputs written to {args.output_dir}/")
     print("Done.")

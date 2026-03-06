@@ -1,0 +1,15 @@
+effect_id,parameter,base_value,low_value,high_value,base_neutral,low_neutral,high_neutral,pct_change_low,pct_change_high
+chicken_corporate_campaigns,fund_split_pct,0.512,0.256,0.768,1.215e+06,6.074e+05,1.822e+06,-50%,+50%
+chicken_corporate_campaigns,persistence_years,15,7.5,22.5,1.215e+06,6.074e+05,1.822e+06,-50%,+50%
+movement_building,fund_split_pct,0.231,0.1155,0.3465,4.561e+05,2.28e+05,6.841e+05,-50%,+50%
+movement_building,persistence_years,10,5,15,4.561e+05,2.28e+05,6.841e+05,-50%,+50%
+policy_advocacy_multi_species,fund_split_pct,0.119,0.0595,0.1785,9.122e+05,4.561e+05,1.368e+06,-50%,+50%
+policy_advocacy_multi_species,persistence_years,15,7.5,22.5,9.122e+05,4.561e+05,1.368e+06,-50%,+50%
+fish_welfare,fund_split_pct,0.045,0.0225,0.0675,1.829e+05,9.147e+04,2.744e+05,-50%,+50%
+fish_welfare,persistence_years,10,5,15,1.829e+05,9.147e+04,2.744e+05,-50%,+50%
+shrimp_welfare,fund_split_pct,0.019,0.0095,0.0285,2.729e+06,1.364e+06,4.093e+06,-50%,+50%
+shrimp_welfare,persistence_years,10,5,15,2.729e+06,1.364e+06,4.093e+06,-50%,+50%
+wild_animal_welfare,fund_split_pct,0.024,0.012,0.036,7.981e+05,3.991e+05,1.197e+06,-50%,+50%
+wild_animal_welfare,persistence_years,10,5,15,7.981e+05,3.991e+05,1.197e+06,-50%,+50%
+invertebrate_welfare,fund_split_pct,0.014,0.007,0.021,3.127e+06,1.564e+06,4.691e+06,-50%,+50%
+invertebrate_welfare,persistence_years,10,5,15,3.127e+06,1.564e+06,4.691e+06,-50%,+50%

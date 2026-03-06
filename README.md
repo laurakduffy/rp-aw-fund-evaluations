@@ -1,6 +1,6 @@
 # AW Fund Marginal Cost-Effectiveness Evaluations
 
-Estimates the marginal cost-effectiveness of EA Animal Welfare funds in terms of **animal suffering-years averted per dollar**, using intervention estimates from the Rethink Priorities Cross-Cause Model (CCM).
+Estimates the marginal cost-effectiveness of EA Animal Welfare funds in terms of **animal suffering-years averted per dollar**, using intervention estimates from the Rethink Priorities Cross-Cause Model (CCM) and other modeling. 
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ python run.py --fund navigation_fund         # (template — fill in splits firs
 ```
 aw-fund-evaluations/
 ├── data/inputs/
-│   ├── ccm_intervention_estimates.yaml  # CCM-derived CE percentiles per intervention
+│   ├── ccm_intervention_estimates.yaml  # CCM- or otherwise-derived CE percentiles per intervention
 │   ├── ccm_extract.py                  # Script that generated the above from CCM params
 │   ├── funds/
 │   │   ├── ea_awf.yaml                 # EA AWF splits (estimated from 2024 payouts)
@@ -49,11 +49,11 @@ aw-fund-evaluations/
 
 ## Methodology
 
-1. **CCM intervention estimates**: Pre-computed cost-effectiveness distributions from the Rethink Priorities CCM, extracted as p10/p50/p90 percentiles of suffering-years averted per $1000. Source parameters are in `ccm_extract.py`.
+1. **CCM intervention estimates**: Pre-computed cost-effectiveness distributions from the Rethink Priorities CCM for invertebrates (farmed and wild), extracted as p1/p5/p10/p50/p90/p95/p99 percentiles of suffering-years averted per $1000. Source parameters are in `ccm_extract.py`. Other estimate methods are described in this document here: https://docs.google.com/document/d/1Kuu08LFYpjG-wGzt7_QmBLkFTzsv4FaQHYRQKn9p3A8/edit?usp=sharing
 
 2. **Fund budget splits**: Each fund has a YAML file specifying what percentage of its budget goes to each intervention type (chicken campaigns, fish welfare, shrimp, etc.).
 
-3. **Distribution fitting**: Fit parametric distributions (normal, lognormal, skew-normal, GEV, etc.) to the CCM percentiles using `rp-distribution-fitting`. For zero-heavy distributions (where p10=0 due to binary success models), the CCM mean is used directly.
+3. **Distribution fitting**: Fit parametric distributions (normal, lognormal, skew-normal, GEV, etc.) to the CCM percentiles using `rp-distribution-fitting`. For zero-heavy distributions, the mean is used. 
 
 4. **Risk adjustments**: Compute risk-neutral EV plus risk-averse variants:
    - **Upside skepticism**: Truncate upper tail at p99
@@ -85,19 +85,15 @@ Available intervention keys match those in `ccm_intervention_estimates.yaml`:
 
 | Data | Source | Status |
 |------|--------|--------|
-| Chicken CE | CCM direct override (Laura Duffy) | Real CCM parameter |
-| Shrimp/Fish/Invertebrate CE | CCM bottom-up models | Real CCM parameters |
+| Chicken/Shrimp/Fish CE | CCM direct override (Laura Duffy) | Data and Models |
+| Invertebrates CE | CCM bottom-up models | Real CCM parameters |
 | Policy/Movement/Wild CE | Analyst priors from CCM baselines | Derived estimates |
 | EA AWF splits | 2024 payout reports (EA Forum) | Estimated from public data |
-| Navigation Fund splits | Awaiting Jesse | Template only |
+| Navigation Fund splits | Jesse | Provided from org |
 | Coefficient Giving splits | Awaiting Lewis | Template only |
 | Diminishing returns | Placeholder anchors | Needs fund manager input |
 
 ## What Still Needs Human Input
-
-- **Navigation Fund splits**: Fill `navigation_fund.yaml` when data arrives
+- **Uncertainty of intervention success**: Some interventions may fail. We currently treat this by discounting the expected cost-effectiveness to ensure we can fit the distributions, but in the future more sophisticated risk models could be used. 
 - **CG splits**: Fill `coefficient_giving.yaml` if Lewis responds
-- **Mammals**: CCM has no mammal intervention model — needs analyst estimate or omission
-- **Wild animals**: Analyst prior only — CCM has no wild animal model
-- **Moral weights**: CCM values are pre-moral-weight (animal suffering-years); confirm whether to apply CCM moral weights or alternative weights
 - **Diminishing returns anchors**: Need fund manager input per fund

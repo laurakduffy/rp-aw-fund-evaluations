@@ -40,6 +40,8 @@ fund:
   #     insects & wild line ($2M × 50%)
   #   wild_animal_welfare: $1.0M → 0.025
   #     insects & wild line ($2M × 50%)
+  #   mammals: 0.0 (not yet included in splits)
+
   splits:
     movement_building: 0.44
     policy_advocacy_multi_species: 0.22
@@ -47,7 +49,7 @@ fund:
     fish_welfare: 0.07
     shrimp_welfare: 0.03
     invertebrate_welfare: 0.025
-    wild_animal_welfare: 0.025
+    wild_animal_welfare: 0.025 
 
   diminishing_anchors:
     - [8.0, 1.0]

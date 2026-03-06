@@ -15,6 +15,7 @@
 #   shrimp = (0.05×6.3 + 0.03×40) / 79.3 = 0.019
 #   wild = (0.14×6.3 + 0.025×40) / 79.3 = 0.024
 #   invert = (0.02×6.3 + 0.025×40) / 79.3 = 0.014
+#   mammals = 0.0 (not yet included in splits)
 #
 # TNF dominates (~92% of marginal budget). Splits will shift when CG
 # data arrives. EA AWF splits are historical (marginal not yet available).
